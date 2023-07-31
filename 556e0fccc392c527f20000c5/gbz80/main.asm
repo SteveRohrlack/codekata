@@ -1,4 +1,3 @@
-INCLUDE "hardware.inc"
 DEF START EQU $150
 
 SECTION "Header", ROM0[$100]
