@@ -7,22 +7,23 @@ def survive(candidateCount: int, eliminateEvery: int) -> int:
         candidates.append(nr)
 
     # init index
-    idx = advanceIdxBy
+    idx = inc(0, advanceIdxBy, candidateCount)
     maxIdx = candidateCount - 1
 
     # as long as there is more than one survivor
     while len(candidates) > 1:
-        # remove the candidate at idx and decrement maxIdx
         candidates.pop(idx)
         maxIdx -= 1
-
-        # increment list index by "advanceIdxBy" and handle overflow
-        addAll = advanceIdxBy
-        while addAll > 0:
-            addAll -= 1
-            idx += 1
-            if idx > maxIdx:
-                # overflow by subtracting the max number of elementes (+ 1 because not an index)
-                idx -= (maxIdx + 1)
-
+        idx = inc(idx, advanceIdxBy, maxIdx)
     return candidates[0]
+
+def inc(index: int, by: int, maxIndex: int) -> int:
+    newIndex = index
+    addAll = by
+    while addAll > 0:
+        addAll -= 1
+        newIndex += 1
+        if newIndex > maxIndex:
+            # overflow by subtracting the max number (not index)
+            newIndex -= (maxIndex + 1)
+    return newIndex
